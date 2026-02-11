@@ -1,0 +1,150 @@
+### user reg
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+    "firstName":"Sampath",
+    "lastName":"Chary",
+    "email":"sampath@email.com",
+    "password":"user1234",
+    "profileImageUrl":"https://example.com/avastars/author.png"
+}
+
+### author reg
+POST http://localhost:4000/author-api/users
+Content-Type: application/json
+
+{
+    "firstName":"akaash",
+    "lastName":"addani",
+    "email":"akaash@email.com",
+    "password":"user1234",
+    "profileImageUrl":"https://example.com/avastars/author.png"
+}
+
+###user login
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"sampath@email.com",
+    "password":"user12345"
+}
+
+
+###author login
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"akaash@email.com",
+    "password":"user1234"
+}
+
+
+### create the article
+POST http://localhost:4000/author-api/articles
+Content-Type: application/json
+
+{
+    "author":"69896a9db4e2bff2dffddd5a",
+    "title":"test2 article",
+    "category":"blog",
+    "content":"Test content2"
+}
+
+
+###read articles of author
+GET http://localhost:4000/author-api/articles/69896a9db4e2bff2dffddd5a
+
+
+### upadte the article by author
+PUT http://localhost:4000/author-api/articles
+Content-Type: application/json
+
+{
+    "article":"6989756d1610792c31e13379",
+    "author":"69896a9db4e2bff2dffddd5a",
+    "title":"test2 article",
+    "category":"blog conent title",
+    "content":"new edit done 2"
+}
+
+
+
+###soft delete the article 
+PUT http://localhost:4000/author-api/articles/delete
+Content-Type: application/json
+
+{
+    "article":"6989756d1610792c31e13379",
+    "author":"69896a9db4e2bff2dffddd5a"
+}
+
+
+###user login
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"anurag@email.com",
+    "password":"user1234",
+}
+
+
+
+###get all articles 
+GET http://localhost:4000/user-api/articles/6989d9268e98508af0ea0def
+
+
+###post a comment
+POST http://localhost:4000/user-api/comment
+Content-Type: application/json
+
+{
+    "user":"6989d9268e98508af0ea0def",
+    "articleId":"698977e47fc38a5787e198b1",
+    "newComment":"I liked this article very much"
+}
+
+
+
+###logout
+GET http://localhost:4000/common-api/logout
+
+
+###test request
+GET http://localhost:4000/omg
+
+
+
+###admin login
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"admin@gmail.com",
+    "password":"admin"
+}
+
+
+
+###block user 
+POST http://localhost:4000/admin-api/unblock
+Content-Type: application/json
+
+{
+    "id":"6989d9268e98508af0ea0def"
+}
+
+
+
+###update password
+PUT http://localhost:4000/common-api/change-password
+Content-Type: application/json
+
+{
+    "email":"sampath@email.com",
+    "currentPassword":"user1234",
+    "newPassword":"user12345"
+}
