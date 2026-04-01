@@ -20,8 +20,7 @@ authorRoute.post('/users',async(req,res)=>{
     })
 })
 //create article(protected)
-
-authorRoute.post('/articles',verifyToken,checkAuthor,async(req,res)=>{
+authorRoute.post('/articles',verifyToken('AUTHOR'),async(req,res)=>{
     //get article from user
     let article=req.body
     //check the author
@@ -37,7 +36,7 @@ authorRoute.post('/articles',verifyToken,checkAuthor,async(req,res)=>{
     })
 })
 //read article by auth id(protected)
-authorRoute.get('/articles/:id',verifyToken,checkAuthor,async(req,res)=>{
+authorRoute.get('/articles/:id',verifyToken('AUTHOR'),async(req,res)=>{
     //get author id
     let authorId=req.params.id
     //read articls bu this author and active
@@ -50,13 +49,13 @@ authorRoute.get('/articles/:id',verifyToken,checkAuthor,async(req,res)=>{
 
 })
 //edit article(protected)
-authorRoute.put('/articles',verifyToken,checkAuthor,async(req,res)=>{
-    let authorId=req.body.author
-    let articleId=req.body.article
+authorRoute.put('/articles',verifyToken('AUTHOR'),async(req,res)=>{
+    let authorId=req.user.userId
+    let articleId=req.body.articleId
     let title=req.body.title
     let category=req.body.category
     let content=req.body.content
-
+    
     let article=await ArticleModel.findOne({_id:articleId,author:authorId})
     if(!article){
         return res.status(401).json({message:'Article not found'})
@@ -83,26 +82,28 @@ authorRoute.put('/articles',verifyToken,checkAuthor,async(req,res)=>{
 
 })
 //(soft)delete article(protected)
-authorRoute.put('/articles/delete',checkAuthor,async(req,res)=>{
-    let authorId=req.body.author
+authorRoute.patch('/articles/delete/status',verifyToken('AUTHOR'),async(req,res)=>{
     let articleId=req.body.article
-
-    let article=await ArticleModel.findOne({_id:articleId,author:authorId})
+    let isArticleActive=req.body.isArticleActive
+    let article=await ArticleModel.findById(articleId)
+    
     if(!article){
         return res.status(401).json({message:'Article not found'})
     }
-    let updatedArticle=await ArticleModel.findByIdAndUpdate(
-        articleId,
-        {
-            $set:{isArticleActive:false}
-        },
-        {new:true}
-    )
+    if(article.author.toString()!==req.user.userId){
+         return res.status(403).json({message:'Forbidden. You can only delete your article'})
+    }
+    if(article.isArticleActive===isArticleActive){
+        return res.status(400).json({
+            message:`Article is already ${isArticleActive ?"active":"deleted"}`
+        })
+    }
 
+    article.isArticleActive=isArticleActive;
+    await article.save()
     res.status(201).json({
         message:'Article soft deleted',
-        payload:updatedArticle
+        payload:article
     })
-
 })
 //read articls of author

@@ -2,6 +2,7 @@ import exp from 'express'
 import { authentication } from '../SERVICES/autthService.js'
 import { compare,hash } from 'bcryptjs'
 import { UserTypeModel } from '../MODELS/userModel.js'
+import { verifyToken } from '../MIDDLEWARES/verifyToken.js'
 export const commonRouter=exp.Router()
 
 //login 
@@ -62,4 +63,12 @@ commonRouter.put('/change-password',async(req,res)=>{
     //send res
     res.status(200).json({message:'Password Updated Sucessfully'})
 
+})
+
+
+commonRouter.get('/check-auth',verifyToken('USER','AUTHOR','ADMIN'),(req,res)=>{
+    res.status(200).json({
+        message:'authenticated',
+        payload:req.user
+    })
 })

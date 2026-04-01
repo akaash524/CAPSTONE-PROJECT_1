@@ -73,12 +73,12 @@ Content-Type: application/json
 
 
 ###soft delete the article 
-PUT http://localhost:4000/author-api/articles/delete
+PATCH http://localhost:4000/author-api/articles/delete/status
 Content-Type: application/json
 
 {
-    "article":"6989756d1610792c31e13379",
-    "author":"69896a9db4e2bff2dffddd5a"
+    "article":"698977e47fc38a5787e198b1",
+    "isArticleActive":false
 }
 
 
@@ -94,7 +94,7 @@ Content-Type: application/json
 
 
 ###get all articles 
-GET http://localhost:4000/user-api/articles/6989d9268e98508af0ea0def
+GET http://localhost:4000/user-api/articles
 
 
 ###post a comment
@@ -102,9 +102,8 @@ POST http://localhost:4000/user-api/comment
 Content-Type: application/json
 
 {
-    "user":"6989d9268e98508af0ea0def",
     "articleId":"698977e47fc38a5787e198b1",
-    "newComment":"I liked this article very much"
+    "comment":"This is my second review"
 }
 
 

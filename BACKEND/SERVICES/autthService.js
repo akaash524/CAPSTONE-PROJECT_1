@@ -44,12 +44,12 @@ export const authentication=async ({email,password})=>{
         throw err
     }
 
-    const token=jwt.sign({userId:user._id,role:user.role,email:user.email},
+    const token=jwt.sign({userId:user._id,role:user.role,email:user.email,profileImageUrl:user.profileImageUrl},
         process.env.JWT_SECRECT,
         {expiresIn:"1h"}
     )
-    const userObj=user.toObject()
-    delete userObj.password
+    const userObj={userId:user._id,role:user.role,email:user.email,profileImageUrl:user.profileImageUrl}
+    // delete userObj.password
 
     return {token,user:userObj};
 }
