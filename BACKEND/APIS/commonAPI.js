@@ -15,8 +15,8 @@ commonRouter.post('/login',async(req,res)=>{
     //sava as htttp cookie only 
     res.cookie("token",token,{
         httpOnly:true,
-        sameSite:"lax",
-        secure:false,
+        sameSite:"none",
+        secure:true,
     })
     //send response
     res.status(200).json({
