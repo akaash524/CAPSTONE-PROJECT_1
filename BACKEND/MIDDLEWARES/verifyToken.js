@@ -26,7 +26,7 @@ export const verifyToken=(...allowedRoles)=>{
         if(err.name==='TokenExpiredError'){
             return res.status(401).json({message:'Session Expired. Please Login Again'})
         }
-        if(err.name==='JsonWenTokenError'){
+        if(err.name==='JsonWebTokenError'){
             return res.status(401).json({message:'Invalid Token. Please Login Again'})
         }
         // next(err)
