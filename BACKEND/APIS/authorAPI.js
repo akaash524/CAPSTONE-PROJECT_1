@@ -5,20 +5,54 @@ import { ArticleModel } from '../MODELS/articleModel.js';
 import { UserTypeModel } from '../MODELS/userModel.js';
 import { checkAuthor } from '../MIDDLEWARES/checkAuthor.js';
 import { verifyToken } from '../MIDDLEWARES/verifyToken.js';
+import { upload } from '../config/multer.js';
+import cloudinary from '../config/cloudinary.js';
+import { uploadToCloudinary } from '../config/cloudinaryUpload.js';
 export const authorRoute=exp.Router()
 
 //reg author(public)
-authorRoute.post('/users',async(req,res)=>{
-    // get user bj from req
-    let userObj=req.body;
-    // call the reg function 
-    const newUserObj=await register({...userObj,role:"AUTHOR"})  // mindbblocking ideaaa
-    //send res
-    res.status(201).json({
-        message:"author created",
-        payload:newUserObj
-    })
-})
+authorRoute.post(
+    "/users",
+    upload.single("profileImageUrl"),
+    async (req, res, next) => {
+
+        let cloudinaryResult;
+
+        try {
+
+            let userObj = req.body;
+
+            // upload image to cloudinary
+            if (req.file) {
+                cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+            }
+
+            // register author
+            const newUserObj = await register({
+                ...userObj,
+                role: "AUTHOR",
+                profileImageUrl: cloudinaryResult?.secure_url,
+            });
+
+            // send response
+            res.status(201).json({
+                message: "author created",
+                payload: newUserObj,
+            });
+
+        } catch (err) {
+
+            // rollback uploaded image if DB save fails
+            if (cloudinaryResult?.public_id) {
+                await cloudinary.uploader.destroy(
+                    cloudinaryResult.public_id
+                );
+            }
+
+            next(err);
+        }
+    }
+);
 //create article(protected)
 authorRoute.post('/articles',verifyToken('AUTHOR'),async(req,res)=>{
     //get article from user
@@ -26,6 +60,7 @@ authorRoute.post('/articles',verifyToken('AUTHOR'),async(req,res)=>{
     //check the author
     //middel ware
     //create article document
+    console.log(article)
     const articleDoc=new ArticleModel(article)
     //save
     let createdArticleDoc=await articleDoc.save()

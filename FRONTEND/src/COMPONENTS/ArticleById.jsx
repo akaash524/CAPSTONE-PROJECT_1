@@ -27,7 +27,7 @@ import {
 } from "../styles/common.js";
 
 function ArticleByID() {
-  const { register,handleSubmit,setValue,formState: { errors }} = useForm();
+  const { register,handleSubmit,setValue,reset,formState: { errors }} = useForm();
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -107,11 +107,12 @@ function ArticleByID() {
     //add artcileId
     commentObj.articleId = article._id;
     console.log(commentObj);
-    let res = await axios.put("http://localhost:4000/user-api/articles", commentObj, { withCredentials: true });
+    let res = await axios.post("http://localhost:4000/user-api/comment", commentObj, { withCredentials: true });
     if (res.status === 200) {
       toast.success(res.data.message);
       setArticle(res.data.payload);
     }
+    reset()
   };
   if (loading) return <p className={loadingClass}>Loading article...</p>;
   if (error) return <p className={errorClass}>{error}</p>;
@@ -157,7 +158,7 @@ function ArticleByID() {
         </div>
       )}
       {/* comments */}
-      {article.comments.map((comment) => (
+      {article.comments?.map((comment) => (
         <div className="bg-gray-300 p-6 rounded-2xl mt-4">
           <p className="uppercase text-pink-400 font-bold mb-3">
           {comment.user?.email}

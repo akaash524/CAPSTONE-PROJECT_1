@@ -52,8 +52,8 @@ export const useAuth=create((set)=>({
         console.log('check auth working')
         try{
             set({loading:true,error:null})
-            let res=await axios.get("http://localhost:4000/common-api/ckeck-auth",{withCredentials:true})
-           // console.log(res.data.payload)
+            let res=await axios.get("http://localhost:4000/common-api/check-auth",{withCredentials:true})
+           //console.log(res.data.payload)
            
             set({
                 loading:false,

@@ -13,7 +13,6 @@ function Register() {
     let [preview,setPreview]=useState()
 
     const onUserRegister=async (newUser)=>{
-        console.log(newUser)
         setLoading(true)
       //handle the form details....
        const formData = new FormData();

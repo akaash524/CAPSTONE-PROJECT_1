@@ -36,7 +36,7 @@ function Header() {
         return "/user-profile";
     }
   };
-
+ console.log(isAuthenticated)
   return (
     <nav className={navbarClass}>
       <div className={navContainerClass}>
@@ -52,9 +52,9 @@ function Header() {
               Home
             </NavLink>
           </li>
-
+        
           {/* Not logged in */}
-          {!isAuthenticated && (
+          {!isAuthenticated ? (
             <>
               <li>
                 <NavLink to="/register" className={({ isActive }) => (isActive ? navLinkActiveClass : navLinkClass)}>
@@ -68,10 +68,7 @@ function Header() {
                 </NavLink>
               </li>
             </>
-          )}
-
-          {/* Logged in */}
-          {isAuthenticated && (
+          ):(
             <>
               <li>
                 <NavLink

@@ -55,6 +55,7 @@ userRoute.get('/articles',verifyToken('USER'),async(req,res)=>{
 })
 // add comment to an articls(protected route)
 userRoute.post('/comment',verifyToken('USER'),async(req,res)=>{
+    
     //get parameters
     let { articleId,comment} = req.body
     let user=req.user.userId

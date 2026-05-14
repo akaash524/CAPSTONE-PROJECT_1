@@ -15,7 +15,7 @@ function WriteArticle() {
 
     //add authorId to articleObj
     console.log(currentUser)
-    articleObj.author=currentUser._id;
+    articleObj.author=currentUser.userId;
     try {
           await axios.post(
             "http://localhost:4000/author-api/articles",
