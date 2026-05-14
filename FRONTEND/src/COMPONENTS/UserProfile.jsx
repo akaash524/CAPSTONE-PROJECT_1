@@ -36,7 +36,7 @@ function UserProfile() {
         const getAllArticles=async()=>{
             setLoading(true)
             try{
-                let res=await axios.get("http://localhost:4000/user-api/articles",{withCredentials:true})
+                let res=await axios.get("https://capstone-project-1-zhbo.onrender.com/user-api/articles",{withCredentials:true})
                 setArticles(res.data.payload)
             }catch(err){
                 console.log("Err is ",err)

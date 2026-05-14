@@ -18,7 +18,7 @@ function WriteArticle() {
     articleObj.author=currentUser.userId;
     try {
           await axios.post(
-            "http://localhost:4000/author-api/articles",
+            "https://capstone-project-1-zhbo.onrender.com/author-api/articles",
             articleObj,
             { withCredentials: true }
           );

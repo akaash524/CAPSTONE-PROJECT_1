@@ -11,7 +11,7 @@ import cors from 'cors'
 config()
 const app=exp()
 //use cors
-app.use(cors({origin:['http://localhost:5173'],credentials:true}))
+app.use(cors({origin:['http://localhost:5173',"https://capstone-project-1-theta.vercel.app"],credentials:true}))
 // add body paersar middleware
 app.use(exp.json())
 //add cookei parser middle ware 

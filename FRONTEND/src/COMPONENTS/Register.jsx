@@ -27,7 +27,7 @@ function Register() {
       try{
         if(newUser.role==='user'){
             //make req to user api
-            let resObj=await axios.post("http://localhost:4000/user-api/users",formData)
+            let resObj=await axios.post("https://capstone-project-1-zhbo.onrender.com/user-api/users",formData)
             if(resObj.status==201){
                 toast.success("Registered Sucessfully")
                 navigate('/login')
@@ -35,7 +35,7 @@ function Register() {
         }
         if(newUser.role==='author'){
              //make req to author api
-            let resObj=await axios.post("http://localhost:4000/author-api/users",formData)
+            let resObj=await axios.post("https://capstone-project-1-zhbo.onrender.com/author-api/users",formData)
             if(resObj.status==201){
                 toast.success("Registered Sucessfully")
                 navigate('/login')

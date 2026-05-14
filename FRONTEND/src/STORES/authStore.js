@@ -11,7 +11,7 @@ export const useAuth=create((set)=>({
         const {role,...userCredObj}=userCredWithRole
         try{
             set({loading:true,error:null})
-            let res=await axios.post('http://localhost:4000/common-api/login',userCredObj,{withCredentials:true})
+            let res=await axios.post('https://capstone-project-1-zhbo.onrender.com/common-api/login',userCredObj,{withCredentials:true})
             set({
                 loading:false,
                 isAuthenticated:true,
@@ -31,7 +31,7 @@ export const useAuth=create((set)=>({
             //set loading state
             set({loading:true,error:null})
             //make logout api req
-            let res=await axios.get('http://localhost:4000/common-api/logout',{withCredentials:true})
+            let res=await axios.get('https://capstone-project-1-zhbo.onrender.com/common-api/logout',{withCredentials:true})
             //update state
             set({
                 loading:false,
@@ -52,7 +52,7 @@ export const useAuth=create((set)=>({
         console.log('check auth working')
         try{
             set({loading:true,error:null})
-            let res=await axios.get("http://localhost:4000/common-api/check-auth",{withCredentials:true})
+            let res=await axios.get("https://capstone-project-1-zhbo.onrender.com/common-api/check-auth",{withCredentials:true})
            //console.log(res.data.payload)
            
             set({
