@@ -64,76 +64,193 @@ function Register() {
     //     return <p className={errorClass}>{error}</p>
     // }
   return (
-    <div className='box-border'>
-        <h1 className='text-4xl text-center p-4'>Register</h1>
-        <div className='mt-5 flex justify-center text-2xl'>
-          <div className=' text-center flex flex-col w-112.5 border p-5 rounded-md shadow-2xl'>
-          <form onSubmit={handleSubmit(onUserRegister)}>
-            {error&&<p className={errorClass}>{error}</p>}
-              <div className='flex text-center justify-between items-center'>
-                  <span className='text-[36px]'>Select Role</span>
-                  <div><input type="radio" {...register('role',{required:true})} id="" value="user" className='border p-2 size-5'/> User</div>
-                  <div><input type="radio" {...register('role',{required:true})} id="" value="author" className='border p-2 size-5'/> Author</div>
-              </div>
-              {errors.role?.type==='required'&&<p className='text-red-400'>please select the role</p>}
-              <div className='flex justify-between mt-8'>
-                  <input type="text" {...register('firstName',{required:true})} id="" placeholder='First Name' className='border p-2 rounded-md w-[45%] text-center' />
-                  <input type="text" {...register('lastName')} id="" placeholder='Last Name' className='border p-2 rounded-md w-[45%] text-center' />
-                  {/* last name is optional  */}
-              </div>
-              {errors.firstName?.type==='required'&&<p className='text-red-400'>First name is required</p>}
-              <div className='flex justify-around mt-8 '>
-                  <input type="email" {...register('email',{required:true})} id="" placeholder='Email' className='border p-2 rounded-md w-full text-center'/>
-              </div>
-              {errors.email?.type==='required'&&<p className='text-red-400'>Email is required</p>}
-              <div className='flex justify-around mt-8'>
-                  <input type="password" {...register('password',{required:true})} id="" placeholder='Password' className='border p-2 rounded-md w-full text-center' />
-              </div>
-               {errors.password?.type==='required'&&<p className='text-red-400'>Password is required</p>}
-              <div className='flex justify-around mt-8'>
-                  <input type="file" 
-                  accept="image/png, image/jpeg"
-                  {...register('profileImageUrl')} id=""
-                   onChange={(e) => {
-                        //get image file
-                        const file = e.target.files[0];
-                        // validation for image format
-                        if (file) {
-                            if (!["image/jpeg", "image/png"].includes(file.type)) {
-                            setError("Only JPG or PNG allowed");
-                            return;
-                            }
-                            //validation for file size
-                            if (file.size > 2 * 1024 * 1024) {
-                            setError("File size must be less than 2MB");
-                            return;
-                            }
-                            //Converts file → temporary browser URL(create preview URL)
-                            const previewUrl = URL.createObjectURL(file);
-                            setPreview(previewUrl);
-                            setError(null);
-                            }
-                        }
-                    }
-                   placeholder='Upload Profile Image' 
-                   className='border p-2 rounded-md w-full text-center'/>
-                   {preview && (
-                        <div className="mt-3 flex justify-center">
-                        <img
-                            src={preview}
-                            alt="Preview"
-                            className="w-24 h-24 object-cover rounded-full border"
-                        />
-                        </div>
-                    )}
-              </div >
-              <button type='submit' className='px-8 py-2 bg-blue-400 mt-8 rounded-md'>Register</button>
-          </form>
-        </div>
+  <div className="min-h-screen flex items-center justify-center bg-black px-6 py-16 relative overflow-hidden">
+    {/* Background Glow */}
+    <div className="absolute w-125 h-125 bg-blue-600/20 blur-[140px] rounded-full"></div>
+
+    {/* Card */}
+    <div className="relative z-10 w-full max-w-2xl bg-white/5 border border-white/10 backdrop-blur-xl rounded-[32px] p-8 md:p-10 shadow-2xl">
+      
+      {/* Heading */}
+      <div className="text-center mb-10">
+        <h1 className="text-5xl font-extrabold text-white">
+          Create Account
+        </h1>
+
+        <p className="text-zinc-400 mt-4 text-lg">
+          Join BlogSphere and start your blogging journey.
+        </p>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit(onUserRegister)}>
+        
+        {/* Error */}
+        {error && (
+          <p className="bg-red-500/10 border border-red-500/30 text-red-400 text-center rounded-2xl py-3 mb-6">
+            {error}
+          </p>
+        )}
+
+        {/* Role */}
+        <div className="mb-8">
+          <label className="text-white text-lg font-semibold block mb-4">
+            Select Role
+          </label>
+
+          <div className="grid grid-cols-2 gap-4">
+            <label className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 hover:border-blue-500 rounded-2xl py-4 cursor-pointer transition">
+              <input
+                type="radio"
+                {...register("role", { required: true })}
+                value="user"
+                className="accent-blue-500 size-5"
+              />
+
+              <span className="text-white font-medium">
+                User
+              </span>
+            </label>
+
+            <label className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 hover:border-blue-500 rounded-2xl py-4 cursor-pointer transition">
+              <input
+                type="radio"
+                {...register("role", { required: true })}
+                value="author"
+                className="accent-blue-500 size-5"
+              />
+
+              <span className="text-white font-medium">
+                Author
+              </span>
+            </label>
+          </div>
+
+          {errors.role?.type === "required" && (
+            <p className="text-red-400 text-sm mt-3">
+              Please select a role
+            </p>
+          )}
         </div>
 
+        {/* Names */}
+        <div className="grid md:grid-cols-2 gap-5 mb-6">
+          <div>
+            <input
+              type="text"
+              {...register("firstName", { required: true })}
+              placeholder="First Name"
+              className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
+            />
+
+            {errors.firstName?.type === "required" && (
+              <p className="text-red-400 text-sm mt-2">
+                First name is required
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              type="text"
+              {...register("lastName")}
+              placeholder="Last Name"
+              className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
+            />
+          </div>
+        </div>
+
+        {/* Email */}
+        <div className="mb-6">
+          <input
+            type="email"
+            {...register("email", { required: true })}
+            placeholder="Enter your email"
+            className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
+          />
+
+          {errors.email?.type === "required" && (
+            <p className="text-red-400 text-sm mt-2">
+              Email is required
+            </p>
+          )}
+        </div>
+
+        {/* Password */}
+        <div className="mb-6">
+          <input
+            type="password"
+            {...register("password", { required: true })}
+            placeholder="Create a password"
+            className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
+          />
+
+          {errors.password?.type === "required" && (
+            <p className="text-red-400 text-sm mt-2">
+              Password is required
+            </p>
+          )}
+        </div>
+
+        {/* File Upload */}
+        <div className="mb-8">
+          <label className="block text-white text-lg font-semibold mb-4">
+            Profile Image
+          </label>
+
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            {...register("profileImageUrl")}
+            onChange={(e) => {
+              const file = e.target.files[0];
+
+              if (file) {
+                if (
+                  !["image/jpeg", "image/png"].includes(file.type)
+                ) {
+                  setError("Only JPG or PNG allowed");
+                  return;
+                }
+
+                if (file.size > 2 * 1024 * 1024) {
+                  setError("File size must be less than 2MB");
+                  return;
+                }
+
+                const previewUrl =
+                  URL.createObjectURL(file);
+
+                setPreview(previewUrl);
+                setError(null);
+              }
+            }}
+            className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-zinc-400 file:mr-4 file:px-4 file:py-2 file:border-0 file:rounded-xl file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition"
+          />
+
+          {/* Preview */}
+          {preview && (
+            <div className="mt-6 flex justify-center">
+              <img
+                src={preview}
+                alt="Preview"
+                className="w-28 h-28 object-cover rounded-full border-4 border-white/10 shadow-xl"
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-semibold text-lg transition duration-300 shadow-xl shadow-blue-600/20"
+        >
+          {loading ? "Creating Account..." : "Create Account"}
+        </button>
+      </form>
     </div>
-  )
+  </div>
+)
 }
 
 export default Register
