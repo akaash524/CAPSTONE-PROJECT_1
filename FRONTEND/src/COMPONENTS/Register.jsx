@@ -69,7 +69,7 @@ function Register() {
     <div className="absolute w-125 h-125 bg-blue-600/20 blur-[140px] rounded-full"></div>
 
     {/* Card */}
-    <div className="relative z-10 w-full max-w-2xl bg-white/5 border border-white/10 backdrop-blur-xl rounded-[32px] p-8 md:p-10 shadow-2xl">
+    <div className="relative z-10 w-full max-w-2xl bg-white/5 border border-white/10 backdrop-blur-xl rounded-4xl p-8 md:p-10 shadow-2xl">
       
       {/* Heading */}
       <div className="text-center mb-10">
