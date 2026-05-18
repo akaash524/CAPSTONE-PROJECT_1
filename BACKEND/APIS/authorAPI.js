@@ -120,6 +120,7 @@ authorRoute.put('/articles',verifyToken('AUTHOR'),async(req,res)=>{
 authorRoute.patch('/articles/:articleId/status',verifyToken('AUTHOR'),async(req,res)=>{
     let articleId=req.params.article
     let isArticleActive=req.body.isArticleActive
+    console.log(articleId)
     let article=await ArticleModel.findById(articleId)
     
     if(!article){
