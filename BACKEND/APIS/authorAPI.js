@@ -118,13 +118,13 @@ authorRoute.put('/articles',verifyToken('AUTHOR'),async(req,res)=>{
 })
 //(soft)delete article(protected)
 authorRoute.patch('/articles/:articleId/status',verifyToken('AUTHOR'),async(req,res)=>{
-    let articleId=req.params.article
+    let articleId=req.params.articleId
     let isArticleActive=req.body.isArticleActive
     console.log(articleId)
     let article=await ArticleModel.findById(articleId)
     
     if(!article){
-        return res.status(401).json({message:'Article not found'})
+        return res.status(404).json({message:'Article not found'})
     }
     if(article.author.toString()!==req.user.userId){
          return res.status(403).json({message:'Forbidden. You can only delete your article'})
