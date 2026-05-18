@@ -318,9 +318,3 @@ This fixes React Router refresh issues.
 Developed by Akash
 
 ---
-
-# 📄 License
-
-This project is open source and available under the MIT License.
-
----
