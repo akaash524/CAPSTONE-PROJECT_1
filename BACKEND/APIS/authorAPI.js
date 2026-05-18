@@ -75,7 +75,7 @@ authorRoute.get('/articles/:id',verifyToken('AUTHOR'),async(req,res)=>{
     //get author id
     let authorId=req.params.id
     //read articls bu this author and active
-    let articles=await ArticleModel.find({author:authorId,isArticleActive:true}).populate('author','firstName email')
+    let articles=await ArticleModel.find({author:authorId}).populate('author','firstName email')
     //send res
     res.status(200).json({
         message:"Articles found",
