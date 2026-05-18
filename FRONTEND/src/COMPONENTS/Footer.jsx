@@ -153,9 +153,7 @@ function Footer() {
             © 2026 BlogSphere. All rights reserved.
           </p>
 
-          <p className="text-zinc-500 text-sm">
-            Built with React & Tailwind CSS
-          </p>
+          
         </div>
       </div>
     </footer>

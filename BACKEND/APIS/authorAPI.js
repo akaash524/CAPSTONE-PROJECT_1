@@ -141,4 +141,10 @@ authorRoute.patch('/articles/delete/status',verifyToken('AUTHOR'),async(req,res)
         payload:article
     })
 })
-//read articls of author
+//read all articls(protected route) we dont need cause we can acces through user-api also 
+// authorRoute.get('/articles',verifyToken('AUTHOR'),async(req,res)=>{
+//     //get all articles
+//     let articles=await ArticleModel.find({isArticleActive:true}).populate('comments.user','firstName email')
+//     //send response
+//     res.status(200).json({message:"Articles",payload:articles})
+// })

@@ -58,11 +58,11 @@ function Header() {
           <nav>
             <ul className="flex items-center gap-2 md:gap-4">
               {/* Home */}
-              <li>
+              {/* <li>
                 <NavLink to="/" end className={navLinkStyle}>
                   Home
                 </NavLink>
-              </li>
+              </li> */}
 
               {!isAuthenticated ? (
                 <>
