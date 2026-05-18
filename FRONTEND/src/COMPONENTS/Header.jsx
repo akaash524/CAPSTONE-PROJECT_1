@@ -137,7 +137,7 @@ function Header() {
 
                       <div className="hidden md:flex flex-col items-start">
                         <span className="text-sm font-medium text-white leading-none">
-                          {user?.firstName || "User"}
+                          {user?.role || "User"}
                         </span>
 
                         <span className="text-xs text-zinc-400">

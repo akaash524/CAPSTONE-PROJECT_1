@@ -47,7 +47,7 @@ function Footer() {
 
               <li>
                 <Link
-                  to="/about"
+                  to="/"
                   className="hover:text-white transition"
                 >
                   About
@@ -83,7 +83,7 @@ function Footer() {
             <ul className="space-y-3 text-zinc-400">
               <li>
                 <Link
-                  to="/blogs"
+                  to="/"
                   className="hover:text-white transition"
                 >
                   Blogs
@@ -92,7 +92,7 @@ function Footer() {
 
               <li>
                 <Link
-                  to="/privacy"
+                  to="/"
                   className="hover:text-white transition"
                 >
                   Privacy Policy
@@ -101,7 +101,7 @@ function Footer() {
 
               <li>
                 <Link
-                  to="/terms"
+                  to="/"
                   className="hover:text-white transition"
                 >
                   Terms & Conditions
@@ -110,7 +110,7 @@ function Footer() {
 
               <li>
                 <Link
-                  to="/contact"
+                  to="/"
                   className="hover:text-white transition"
                 >
                   Contact
@@ -138,7 +138,7 @@ function Footer() {
               />
 
               <button
-                type="submit"
+              type="button"
                 className="bg-blue-600 hover:bg-blue-700 rounded-2xl py-3 font-medium transition duration-300"
               >
                 Subscribe

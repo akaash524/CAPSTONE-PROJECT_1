@@ -34,9 +34,7 @@ function RootLayout() {
 
       {/* Main Content */}
       <main className="flex-1 w-full">
-        <div className="w-full px-5 md:px-10 py-8">
           <Outlet />
-        </div>
       </main>
 
       {/* Footer */}
