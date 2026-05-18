@@ -117,8 +117,8 @@ authorRoute.put('/articles',verifyToken('AUTHOR'),async(req,res)=>{
 
 })
 //(soft)delete article(protected)
-authorRoute.patch('/articles/delete/status',verifyToken('AUTHOR'),async(req,res)=>{
-    let articleId=req.body.article
+authorRoute.patch('/articles/:articleId/status',verifyToken('AUTHOR'),async(req,res)=>{
+    let articleId=req.params.article
     let isArticleActive=req.body.isArticleActive
     let article=await ArticleModel.findById(articleId)
     

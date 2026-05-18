@@ -76,7 +76,7 @@ function ArticleByID() {
       : "Delete this article?";
 
     if (!window.confirm(confirmMsg)) return;
-
+//      /author-api/articles/6a0b15865700e828a2f567dc/status is Invalid path
     try {
       const res = await axios.patch(
         `https://capstone-project-1-zhbo.onrender.com/author-api/articles/${id}/status`,
