@@ -49,7 +49,9 @@ userRoute.post("/users",upload.single("profileImageUrl"),async (req, res, next) 
 //read all articls(protected route)
 userRoute.get('/articles',verifyToken('USER','AUTHOR','ADMIN'),async(req,res)=>{
     //get all articles
-    let articles=await ArticleModel.find({isArticleActive:true}).populate('comments.user','firstName email')
+    let articles=await ArticleModel.find({isArticleActive:true})
+    .populate('author','firstName email profileImageUrl')
+    .populate('comments.user','firstName email')
     //send response
     res.status(200).json({message:"Articles",payload:articles})
 })

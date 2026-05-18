@@ -173,10 +173,14 @@ function ArticleByID() {
             <div className="flex flex-wrap items-center justify-between gap-6 mt-10">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
-                  <User
-                    size={24}
-                    className="text-blue-600"
-                  />
+                   <img
+                        src={
+                          article.author?.profileImageUrl ||
+                          "https://th.bing.com/th/id/OIP.cN620h43KlX8Sa15ZIsJfQHaHa?w=202&h=202&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
+                        }
+                        alt="profile"
+                        className="w-10 h-10 rounded-full object-cover border border-white/20"
+                    />
                 </div>
 
                 <div>
