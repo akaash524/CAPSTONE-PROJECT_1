@@ -1,12 +1,12 @@
-# BlogSphere 🚀
+# BlogSphere
 
-A modern full-stack blogging platform where users can explore articles, authors can publish content, and admins can manage the platform.
+A modern full-stack blogging platform where users can explore articles, authors can publish content, and administrators can manage the platform.
 
-Built with React, Node.js, Express, MongoDB, Tailwind CSS, Zustand, JWT Authentication, and Cloudinary.
+Built with React, Node.js, Express.js, MongoDB, Tailwind CSS, Zustand, JWT Authentication, and Cloudinary.
 
 ---
 
-# 🌐 Live Demo
+# Live Demo
 
 ## Frontend
 https://capstone-project-1-theta.vercel.app/
@@ -16,26 +16,26 @@ https://capstone-project-1-zhbo.onrender.com
 
 ---
 
-# ✨ Features
+# Features
 
 ## Authentication
-- JWT Authentication
+- JWT-based authentication
 - HTTP-only secure cookies
-- Persistent login with `check-auth`
+- Persistent login using `check-auth`
 - Protected routes
 - Role-based authorization
 
 ## User Features
-- Register/Login
-- Read articles
+- User registration and login
+- Read published articles
 - Comment on articles
-- Explore all published blogs
-- Responsive modern UI
+- Explore all blogs
+- Responsive user interface
 
 ## Author Features
 - Create articles
 - Edit articles
-- Soft delete/restore articles
+- Soft delete and restore articles
 - View authored articles
 
 ## Admin Features
@@ -43,15 +43,15 @@ https://capstone-project-1-zhbo.onrender.com
 - Unblock users
 
 ## UI/UX
-- Modern glassmorphism design
-- Fully responsive
-- Smooth transitions
+- Modern responsive design
+- Glassmorphism-inspired interface
+- Smooth transitions and interactions
 - Toast notifications
 - Professional article layouts
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 ## Frontend
 - React
@@ -76,7 +76,7 @@ https://capstone-project-1-zhbo.onrender.com
 
 ---
 
-# 📁 Project Structure
+# Project Structure
 
 ```bash
 CAPSTONE_PROJECT_1/
@@ -106,45 +106,47 @@ CAPSTONE_PROJECT_1/
 
 ---
 
-# 🔐 Authentication Flow
+# Authentication Flow
 
-## Login
-1. User enters credentials
-2. Backend validates credentials
-3. JWT token generated
-4. Token stored in HTTP-only cookie
-5. Frontend updates Zustand store
+## Login Process
+
+1. User enters credentials  
+2. Backend validates credentials  
+3. JWT token is generated  
+4. Token is stored in an HTTP-only cookie  
+5. Frontend updates the Zustand store  
 
 ## Persistent Login
+
 On refresh:
 
 ```js
 checkAuth()
 ```
 
-validates token using backend API.
+The backend validates the token and restores the authenticated session.
 
 ---
 
-# 👥 Roles
+# Roles and Permissions
 
-| Role | Permissions |
-|------|-------------|
-| USER | Read articles, comment |
-| AUTHOR | Create/edit/delete articles |
-| ADMIN | Block/unblock users |
+| Role  | Permissions |
+|--------|-------------|
+| USER   | Read articles and comment |
+| AUTHOR | Create, edit, and manage articles |
+| ADMIN  | Block and unblock users |
 
 ---
 
-# 📚 API Overview
+# API Overview
 
 ## Common APIs
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/common-api/login` | Login |
-| GET | `/common-api/logout` | Logout |
-| GET | `/common-api/check-auth` | Validate user |
+| POST | `/common-api/login` | User login |
+| GET | `/common-api/logout` | User logout |
+| GET | `/common-api/check-auth` | Validate authenticated user |
 | PUT | `/common-api/change-password` | Change password |
 
 ---
@@ -154,8 +156,8 @@ validates token using backend API.
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/user-api/users` | Register user |
-| GET | `/user-api/articles` | Get all articles |
-| POST | `/user-api/comment` | Add comment |
+| GET | `/user-api/articles` | Fetch all articles |
+| POST | `/user-api/comment` | Add comment to article |
 
 ---
 
@@ -165,9 +167,9 @@ validates token using backend API.
 |--------|----------|-------------|
 | POST | `/author-api/users` | Register author |
 | POST | `/author-api/articles` | Create article |
-| GET | `/author-api/articles/:id` | Get author articles |
+| GET | `/author-api/articles/:id` | Fetch author articles |
 | PUT | `/author-api/articles` | Edit article |
-| PATCH | `/author-api/articles/delete/status` | Soft delete/restore article |
+| PATCH | `/author-api/articles/delete/status` | Soft delete or restore article |
 
 ---
 
@@ -180,7 +182,7 @@ validates token using backend API.
 
 ---
 
-# 🧾 Database Schemas
+# Database Schemas
 
 ## User Schema
 
@@ -213,20 +215,19 @@ validates token using backend API.
 
 ---
 
-# ☁️ Image Uploads
+# Image Uploads
 
-Profile images are uploaded using:
-
+Profile images are handled using:
 - Multer
 - Cloudinary
 
-Uploaded images are stored in Cloudinary and URLs are saved in MongoDB.
+Uploaded images are stored in Cloudinary, and image URLs are saved in MongoDB.
 
 ---
 
-# ⚙️ Installation
+# Installation
 
-# 1️⃣ Clone Repository
+## Clone the Repository
 
 ```bash
 git clone <repository-url>
@@ -234,7 +235,7 @@ git clone <repository-url>
 
 ---
 
-# 2️⃣ Frontend Setup
+## Frontend Setup
 
 ```bash
 cd FRONTEND
@@ -244,7 +245,7 @@ npm run dev
 
 ---
 
-# 3️⃣ Backend Setup
+## Backend Setup
 
 ```bash
 cd BACKEND
@@ -254,7 +255,7 @@ npm start
 
 ---
 
-# 🚀 Deployment
+# Deployment
 
 ## Frontend
 Deployed on Vercel
@@ -264,15 +265,9 @@ Deployed on Render
 
 ---
 
-# ⚠️ Important Vercel Fix
+# Vercel Configuration
 
-Create:
-
-```json
-vercel.json
-```
-
-inside frontend root:
+Create a `vercel.json` file inside the frontend root directory:
 
 ```json
 {
@@ -285,36 +280,34 @@ inside frontend root:
 }
 ```
 
-This fixes React Router refresh issues.
+This configuration resolves React Router refresh issues on deployment.
 
 ---
 
-# 🎨 UI Highlights
+# UI Highlights
 
-- Dark modern theme
 - Responsive layouts
+- Modern dark theme
 - Smooth hover animations
 - Professional article cards
-- Elegant article reading page
-- Styled comments section
+- Elegant article detail pages
+- Styled comment section
 
 ---
 
-# 🔮 Future Improvements
+# Future Improvements
 
 - Rich text editor
-- Article likes
-- Search & filters
+- Article likes and reactions
+- Search and filtering
 - Pagination
-- Bookmark articles
+- Bookmark functionality
 - Admin dashboard
 - Notifications
-- AI article suggestions
+- AI-powered article suggestions
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 Developed by Akash
-
----
