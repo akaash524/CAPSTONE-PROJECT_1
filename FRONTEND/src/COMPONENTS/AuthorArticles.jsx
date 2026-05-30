@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../config/api.js";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../STORES/authStore";
 
@@ -33,7 +34,7 @@ function AuthorArticles() {
       try {
 
         const res = await axios.get(
-          `https://capstone-project-1-zhbo.onrender.com/author-api/articles/${user.userId}`,
+          `${BASE_URL}/author-api/articles/${user.userId}`,
           {
             withCredentials: true,
           }
@@ -102,163 +103,171 @@ function AuthorArticles() {
     );
   }
 
-  if (articles.length === 0) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center">
+    if (articles.length === 0) {
+      return (
+        <div className="min-h-[60vh] flex items-center justify-center px-6">
+          <div className="border border-olive_leaf-300 bg-cornsilk-600 shadow-sm p-12 text-center max-w-lg">
 
-        <div className="bg-white border border-zinc-200 rounded-[32px] p-12 text-center max-w-lg shadow-sm">
-
-          <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-6">
-
-            <FileText
-              size={36}
-              className="text-blue-600"
-            />
-
-          </div>
-
-          <h2 className="text-3xl font-bold text-zinc-900 mb-3">
-            No Articles Yet
-          </h2>
-
-          <p className="text-zinc-500 leading-7">
-            Start sharing your thoughts and
-            ideas with the world by creating
-            your first article.
-          </p>
-
-        </div>
-
-      </div>
-    );
-  }
-
-  return (
-    <div className="px-4 md:px-8 py-6">
-
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-10">
-
-        <div>
-
-          <h1 className="text-4xl font-extrabold text-zinc-900">
-            Your Articles
-          </h1>
-
-          <p className="text-zinc-500 mt-2">
-            Manage, edit, and track all your
-            published articles.
-          </p>
-
-        </div>
-
-        <div className="bg-blue-50 border border-blue-100 text-blue-700 px-5 py-3 rounded-2xl font-medium w-fit">
-          {articles.length} Articles
-        </div>
-
-      </div>
-
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-
-        {articles.map((article) => (
-
-          <div
-            key={article._id}
-            className="
-              group
-              bg-white
-              border border-zinc-200
-              rounded-[32px]
-              p-7
-              hover:shadow-2xl
-              hover:shadow-black/5
-              transition-all duration-300
-              hover:-translate-y-1
-              flex flex-col
-            "
-          >
-
-            {/* Top */}
-            <div className="flex items-start justify-between gap-4 mb-6">
-
-              <div className="flex flex-col gap-3">
-
-                <span className="w-fit bg-blue-50 text-blue-600 border border-blue-100 px-4 py-1.5 rounded-full text-sm font-medium">
-                  {article.category}
-                </span>
-
-                <span
-                  className={`w-fit px-3 py-1 rounded-full text-xs font-semibold tracking-wide ${
-                    article.isArticleActive
-                      ? "bg-emerald-50 text-emerald-600 border border-emerald-100"
-                      : "bg-red-50 text-red-500 border border-red-100"
-                  }`}
-                >
-                  {article.isArticleActive
-                    ? "ACTIVE"
-                    : "DELETED"}
-                </span>
-
-              </div>
-
-              <ArrowUpRight
-                size={22}
-                className="text-zinc-300 group-hover:text-blue-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition"
+            {/* Icon */}
+            <div className="w-20 h-20 bg-black_forest-500 flex items-center justify-center mx-auto mb-6">
+              <FileText
+                size={34}
+                className="text-cornsilk-500"
               />
-
             </div>
 
             {/* Title */}
-            <h2 className="text-2xl font-bold text-zinc-900 leading-snug mb-4 line-clamp-2">
-              {article.title}
+            <h2 className="text-3xl font-black text-black_forest-500 mb-4">
+              No Articles Yet
             </h2>
 
-            {/* Content */}
-            <p className="text-zinc-600 leading-7 line-clamp-4 mb-8">
-              {article.content}
+            {/* Description */}
+            <p className="text-olive_leaf-500 leading-relaxed text-[15px] max-w-md mx-auto">
+              Start sharing your thoughts, ideas, and knowledge with the world by creating your first article.
             </p>
 
-            {/* Footer */}
-            <div className="mt-auto flex items-center justify-between pt-6 border-t border-zinc-100">
-
-              <div className="flex items-center gap-2 text-zinc-500 text-sm">
-
-                <CalendarDays size={16} />
-
-                <span>
-                  {formatDate(
-                    article.createdAt
-                  )}
-                </span>
-
-              </div>
-
-              <button
-                onClick={() =>
-                  openArticle(article)
-                }
-                className="
-                  bg-zinc-900
-                  hover:bg-blue-600
-                  text-white
-                  px-5 py-2.5
-                  rounded-2xl
-                  text-sm
-                  font-medium
-                  transition
-                "
-              >
-                Open
-              </button>
-
+            {/* Optional CTA hint */}
+            <div className="mt-8">
+              <p className="uppercase tracking-[0.15em] text-xs font-semibold text-copperwood-500">
+                Use “Write Article” button to begin
+              </p>
             </div>
 
           </div>
-        ))}
-      </div>
-    </div>
-  );
+        </div>
+      );
+    }
+
+    return (
+        <div className="min-h-screen bg-cornsilk-500 px-6 md:px-10 py-12">
+          <div className="max-w-7xl mx-auto">
+
+            {/* Header */}
+            <div className="border-b border-olive_leaf-300 pb-10 mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+
+              <div>
+                <p className="uppercase tracking-[0.22em] text-sm font-bold text-copperwood-500 mb-3">
+                  Author Dashboard
+                </p>
+
+                <h1 className="text-5xl md:text-6xl font-black text-black_forest-500 leading-tight">
+                  Your Articles
+                </h1>
+
+                <p className="mt-4 text-olive_leaf-500 max-w-2xl text-lg leading-relaxed">
+                  Manage, edit, and track all your published articles in one place.
+                </p>
+              </div>
+
+              <div className="border border-olive_leaf-300 bg-cornsilk-600 px-6 py-4 shadow-sm">
+                <p className="uppercase tracking-[0.18em] text-xs text-olive_leaf-500 font-semibold">
+                  Total Articles
+                </p>
+
+                <p className="text-3xl font-black text-black_forest-500 mt-1">
+                  {articles.length}
+                </p>
+              </div>
+
+            </div>
+
+            {/* Empty State */}
+            {articles.length === 0 ? (
+              <div className="border border-olive_leaf-300 bg-cornsilk-600 py-24 px-8 text-center">
+                <div className="w-20 h-20 bg-black_forest-500 flex items-center justify-center mx-auto mb-6">
+                  <FileText className="text-cornsilk-500" size={34} />
+                </div>
+
+                <h2 className="text-3xl font-black text-black_forest-500">
+                  No Articles Yet
+                </h2>
+
+                <p className="text-olive_leaf-500 mt-4 max-w-lg mx-auto leading-relaxed">
+                  Start writing and publishing your thoughts to build your presence on the platform.
+                </p>
+              </div>
+            ) : (
+              /* Grid */
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+                {articles.map((article) => (
+                  <div
+                    key={article._id}
+                    className="group border border-olive_leaf-300 bg-cornsilk-600 shadow-sm flex flex-col hover:border-copperwood-500 transition duration-300"
+                  >
+
+                    {/* Accent Bar */}
+                    <div className="h-[5px] bg-olive_leaf-500 group-hover:bg-copperwood-500 transition" />
+
+                    <div className="p-7 flex flex-col flex-1">
+
+                      {/* Top badges */}
+                      <div className="flex items-start justify-between mb-6">
+
+                        <div className="flex flex-col gap-3">
+
+                          <span className="w-fit bg-black_forest-500 text-cornsilk-500 px-4 py-1 uppercase tracking-[0.15em] text-xs font-bold">
+                            {article.category}
+                          </span>
+
+                          <span
+                            className={`w-fit px-3 py-1 uppercase tracking-[0.15em] text-xs font-bold border ${
+                              article.isArticleActive
+                                ? "bg-olive_leaf-800 text-black_forest-500 border-olive_leaf-300"
+                                : "bg-copperwood-800 text-black_forest-500 border-copperwood-300"
+                            }`}
+                          >
+                            {article.isArticleActive ? "ACTIVE" : "DELETED"}
+                          </span>
+
+                        </div>
+
+                        <ArrowUpRight
+                          size={20}
+                          className="text-olive_leaf-400 group-hover:text-copperwood-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition"
+                        />
+
+                      </div>
+
+                      {/* Title */}
+                      <h2 className="text-2xl font-black text-black_forest-500 leading-snug mb-4 line-clamp-2 group-hover:text-copperwood-500 transition">
+                        {article.title}
+                      </h2>
+
+                      {/* Content */}
+                      <p className="text-olive_leaf-500 leading-relaxed line-clamp-4 mb-8 text-[15px]">
+                        {article.content}
+                      </p>
+
+                      {/* Footer */}
+                      <div className="mt-auto flex items-center justify-between border-t border-olive_leaf-300 pt-6">
+
+                        <div className="flex items-center gap-2 text-olive_leaf-500 text-sm">
+                          <CalendarDays size={16} />
+                          <span>
+                            {formatDate(article.createdAt)}
+                          </span>
+                        </div>
+
+                        <button
+                          onClick={() => openArticle(article)}
+                          className="bg-copperwood-500 hover:bg-copperwood-400 text-cornsilk-500 px-6 py-2 uppercase tracking-[0.12em] text-sm font-bold transition"
+                        >
+                          Open
+                        </button>
+
+                      </div>
+
+                    </div>
+                  </div>
+                ))}
+
+              </div>
+            )}
+
+          </div>
+        </div>
+      );
 }
 
 export default AuthorArticles;

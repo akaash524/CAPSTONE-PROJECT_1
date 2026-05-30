@@ -15,6 +15,7 @@ import ProtectedRoute from './COMPONENTS/ProtectedRoute.jsx'
 import Unauthorized from './COMPONENTS/Unauthorized.jsx'
 
 import ErrorBoundary from './COMPONENTS/ErrorBoundary.jsx'
+import AdminProfile from './COMPONENTS/AdminProfile.jsx'
 function App() {
 
 const routingObj=createBrowserRouter([
@@ -71,6 +72,9 @@ const routingObj=createBrowserRouter([
         {
           path:'unauthorized',
           element:<Unauthorized />
+        },{
+          path:'admin-profile',
+          element:<AdminProfile />
         }
       ]
     }

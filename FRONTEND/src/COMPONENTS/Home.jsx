@@ -1,135 +1,293 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, PenSquare, Sparkles, Globe } from "lucide-react";
+import {
+  ArrowRight,
+  PenSquare,
+  Sparkles,
+  Globe,
+  BookOpen,
+  Users,
+  Feather,
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative px-6 md:px-16 pt-28 pb-24 flex flex-col items-center text-center">
-        {/* Background Glow */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-130 h-130 bg-blue-600/20 blur-[140px] rounded-full"></div>
+    <div className="min-h-screen bg-cornsilk-500 overflow-hidden">
 
-        <div className="relative z-10 max-w-5xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-full mb-8 backdrop-blur-md">
-            <Sparkles size={16} className="text-blue-400" />
+      {/* HERO */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-36">
 
-            <span className="text-sm text-zinc-300 tracking-wide">
-              Modern Blogging Platform
-            </span>
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+
+          {/* Left */}
+          <div>
+
+            <p className="uppercase tracking-[0.3em] text-xs font-black text-copperwood-500 mb-6">
+              Modern Publishing Platform
+            </p>
+
+            <h1 className="text-6xl md:text-8xl font-black text-black_forest-500 leading-none">
+              Write.
+              <br />
+              Share.
+              <br />
+
+              <span className="text-copperwood-500">
+                Inspire.
+              </span>
+            </h1>
+
+            <p className="mt-10 text-xl text-olive_leaf-500 leading-relaxed max-w-2xl">
+              BlogSphere helps writers, developers,
+              creators, and storytellers publish
+              meaningful content, connect with readers,
+              and build communities around ideas that
+              matter.
+            </p>
+
+            <div className="flex flex-wrap gap-5 mt-12">
+
+              <Link
+                to="/register"
+                className="
+                  bg-black_forest-500
+                  hover:bg-copperwood-500
+                  text-cornsilk-500
+                  px-8 py-4
+                  flex items-center gap-3
+                  font-black
+                  uppercase
+                  tracking-[0.15em]
+                  transition
+                "
+              >
+                Start Writing
+
+                <ArrowRight size={18} />
+              </Link>
+
+              <Link
+                to="/login"
+                className="
+                  border border-olive_leaf-300
+                  px-8 py-4
+                  text-black_forest-500
+                  hover:border-copperwood-500
+                  transition
+                  font-bold
+                  uppercase
+                  tracking-[0.12em]
+                "
+              >
+                Explore Articles
+              </Link>
+
+            </div>
+
           </div>
 
-          {/* Heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight tracking-tight">
-            Write.
-            <span className="text-blue-500"> Share.</span>
-            <br />
-            Inspire The World.
-          </h1>
+          {/* Right */}
+          <div className="relative">
 
-          {/* Description */}
-          <p className="mt-8 text-zinc-400 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-            A modern platform where developers, writers, and creators
-            can publish ideas, share knowledge, and build meaningful
-            communities around the world.
-          </p>
+            <div className="border border-olive_leaf-300 bg-cornsilk-600 p-10 shadow-sm">
 
-          {/* CTA Buttons */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5">
-            <Link
-              to="/register"
-              className="group bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-2xl flex items-center gap-3 text-lg font-semibold transition duration-300 shadow-xl shadow-blue-600/20"
-            >
-              Start Writing
+              <div className="h-1 bg-copperwood-500 mb-8"></div>
 
-              <ArrowRight
-                size={20}
-                className="group-hover:translate-x-1 transition"
-              />
-            </Link>
+              <span className="uppercase text-xs tracking-[0.2em] font-black text-copperwood-500">
+                Featured Story
+              </span>
 
-            <Link
-              to="/about"
-              className="border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 px-8 py-4 rounded-2xl text-lg font-medium transition duration-300"
-            >
-              Learn More
-            </Link>
+              <h2 className="mt-5 text-4xl font-black text-black_forest-500 leading-tight">
+                Creating meaningful content in a world
+                full of noise.
+              </h2>
+
+              <p className="mt-6 text-olive_leaf-500 leading-8">
+                Discover how modern creators are
+                building audiences through storytelling,
+                authenticity, and thoughtful publishing.
+              </p>
+
+              <div className="mt-8 pt-6 border-t border-olive_leaf-300 flex justify-between">
+
+                <div>
+                  <p className="font-black text-black_forest-500">
+                    BlogSphere
+                  </p>
+
+                  <p className="text-sm text-olive_leaf-500">
+                    Editorial Team
+                  </p>
+                </div>
+
+                <ArrowRight className="text-copperwood-500" />
+              </div>
+
+            </div>
+
           </div>
 
         </div>
+
       </section>
 
-      {/* Features */}
-      <section className="px-6 md:px-16 py-20">
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-blue-500/40 hover:bg-white/[0.07] transition duration-300">
-            <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-blue-500/20 mb-6">
-              <PenSquare className="text-blue-400" size={28} />
+      {/* STATS */}
+      <section className="border-y border-olive_leaf-300">
+
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
+
+          {[
+            ["10K+", "Articles Published"],
+            ["5K+", "Active Writers"],
+            ["50K+", "Readers"],
+            ["100+", "Communities"],
+          ].map(([number, label]) => (
+            <div
+              key={label}
+              className="p-10 border-r border-olive_leaf-300 last:border-r-0"
+            >
+              <h3 className="text-4xl font-black text-black_forest-500">
+                {number}
+              </h3>
+
+              <p className="text-olive_leaf-500 mt-2">
+                {label}
+              </p>
             </div>
+          ))}
 
-            <h2 className="text-2xl font-bold mb-4">
-              Easy Writing Experience
-            </h2>
-
-            <p className="text-zinc-400 leading-relaxed">
-              Focus on your ideas with a clean and distraction-free
-              blogging experience designed for creators.
-            </p>
-          </div>
-
-          <div className="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-blue-500/40 hover:bg-white/[0.07] transition duration-300">
-            <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-blue-500/20 mb-6">
-              <Globe className="text-blue-400" size={28} />
-            </div>
-
-            <h2 className="text-2xl font-bold mb-4">
-              Reach Global Readers
-            </h2>
-
-            <p className="text-zinc-400 leading-relaxed">
-              Share your knowledge and connect with readers from around
-              the world instantly.
-            </p>
-          </div>
-
-          <div className="bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-blue-500/40 hover:bg-white/[0.07] transition duration-300">
-            <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-blue-500/20 mb-6">
-              <Sparkles className="text-blue-400" size={28} />
-            </div>
-
-            <h2 className="text-2xl font-bold mb-4">
-              Beautiful Modern UI
-            </h2>
-
-            <p className="text-zinc-400 leading-relaxed">
-              Enjoy a sleek, responsive, and modern design crafted with
-              performance and aesthetics in mind.
-            </p>
-          </div>
         </div>
+
+      </section>
+
+      {/* FEATURES */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-28">
+
+        <div className="text-center mb-20">
+
+          <p className="uppercase tracking-[0.25em] text-xs font-black text-copperwood-500 mb-4">
+            Why BlogSphere
+          </p>
+
+          <h2 className="text-5xl font-black text-black_forest-500">
+            Designed For Modern Creators
+          </h2>
+
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {[
+            {
+              icon: <PenSquare size={30} />,
+              title: "Effortless Writing",
+              desc: "Focus entirely on your ideas with a distraction-free publishing experience.",
+            },
+            {
+              icon: <Globe size={30} />,
+              title: "Global Reach",
+              desc: "Connect with readers worldwide and grow your audience organically.",
+            },
+            {
+              icon: <Sparkles size={30} />,
+              title: "Beautiful Experience",
+              desc: "A thoughtfully crafted interface designed for readers and writers.",
+            },
+            {
+              icon: <BookOpen size={30} />,
+              title: "Rich Content",
+              desc: "Publish tutorials, stories, technical articles, and personal experiences.",
+            },
+            {
+              icon: <Users size={30} />,
+              title: "Community Driven",
+              desc: "Encourage discussions and meaningful engagement through comments.",
+            },
+            {
+              icon: <Feather size={30} />,
+              title: "Built For Storytelling",
+              desc: "Create content that resonates and leaves a lasting impression.",
+            },
+          ].map((feature) => (
+            <div
+              key={feature.title}
+              className="
+                border border-olive_leaf-300
+                bg-cornsilk-600
+                p-8
+                hover:border-copperwood-500
+                transition
+              "
+            >
+              <div className="w-14 h-14 bg-black_forest-500 text-cornsilk-500 flex items-center justify-center mb-6">
+                {feature.icon}
+              </div>
+
+              <h3 className="text-2xl font-black text-black_forest-500 mb-4">
+                {feature.title}
+              </h3>
+
+              <p className="text-olive_leaf-500 leading-8">
+                {feature.desc}
+              </p>
+            </div>
+          ))}
+
+        </div>
+
       </section>
 
       {/* CTA */}
-      <section className="px-6 md:px-16 py-24">
-        <div className="bg-linear-to-r from-blue-600/20 to-purple-600/20 border border-white/10 rounded-[40px] p-10 md:p-16 text-center backdrop-blur-md">
-          <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">
-            Ready To Start Your Blogging Journey?
-          </h2>
+      <section className="px-6 md:px-12 pb-28">
 
-          <p className="mt-6 text-zinc-400 text-lg max-w-2xl mx-auto">
-            Join thousands of creators sharing stories, tutorials,
-            experiences, and ideas every day.
-          </p>
+        <div className="max-w-6xl mx-auto border border-olive_leaf-300 bg-cornsilk-600">
 
-          <Link
-            to="/register"
-            className="inline-flex items-center gap-2 mt-10 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-2xl text-lg font-semibold transition duration-300 shadow-xl shadow-blue-600/20"
-          >
-            Create Account
-            <ArrowRight size={20} />
-          </Link>
+          <div className="h-2 bg-copperwood-500"></div>
+
+          <div className="p-12 md:p-20 text-center">
+
+            <p className="uppercase tracking-[0.25em] text-xs font-black text-copperwood-500 mb-4">
+              Join The Community
+            </p>
+
+            <h2 className="text-5xl md:text-7xl font-black text-black_forest-500 leading-tight">
+              Start Publishing
+              <br />
+              Today.
+            </h2>
+
+            <p className="mt-8 max-w-2xl mx-auto text-xl text-olive_leaf-500 leading-relaxed">
+              Share your ideas, document your journey,
+              teach others, and become part of a growing
+              community of creators.
+            </p>
+
+            <Link
+              to="/register"
+              className="
+                inline-flex
+                items-center
+                gap-3
+                mt-12
+                bg-black_forest-500
+                hover:bg-copperwood-500
+                text-cornsilk-500
+                px-10 py-5
+                font-black
+                uppercase
+                tracking-[0.15em]
+                transition
+              "
+            >
+              Create Account
+              <ArrowRight size={18} />
+            </Link>
+
+          </div>
+
         </div>
+
       </section>
+
     </div>
   );
 }

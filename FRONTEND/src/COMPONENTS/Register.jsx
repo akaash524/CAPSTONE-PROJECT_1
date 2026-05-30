@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { BASE_URL } from '../config/api.js'
 import { useNavigate } from 'react-router'
 import { errorClass, loadingClass } from '../styles/common.js'
 import toast from 'react-hot-toast'
@@ -27,7 +28,7 @@ function Register() {
       try{
         if(newUser.role==='user'){
             //make req to user api
-            let resObj=await axios.post("https://capstone-project-1-zhbo.onrender.com/user-api/users",formData)
+            let resObj=await axios.post(`${BASE_URL}/user-api/users`,formData)
             if(resObj.status==201){
                 toast.success("Registered Sucessfully")
                 navigate('/login')
@@ -35,7 +36,7 @@ function Register() {
         }
         if(newUser.role==='author'){
              //make req to author api
-            let resObj=await axios.post("https://capstone-project-1-zhbo.onrender.com/author-api/users",formData)
+            let resObj=await axios.post(`${BASE_URL}/author-api/users`,formData)
             if(resObj.status==201){
                 toast.success("Registered Sucessfully")
                 navigate('/login')
@@ -63,194 +64,319 @@ function Register() {
     // if(error){
     //     return <p className={errorClass}>{error}</p>
     // }
-  return (
-  <div className="min-h-screen flex items-center justify-center bg-black px-6 py-16 relative overflow-hidden">
-    {/* Background Glow */}
-    <div className="absolute w-125 h-125 bg-blue-600/20 blur-[140px] rounded-full"></div>
+return (
+  <div className="min-h-screen bg-cornsilk-500 py-12 px-6">
+    <div className="max-w-3xl mx-auto">
 
-    {/* Card */}
-    <div className="relative z-10 w-full max-w-2xl bg-white/5 border border-white/10 backdrop-blur-xl rounded-4xl p-8 md:p-10 shadow-2xl">
-      
-      {/* Heading */}
-      <div className="text-center mb-10">
-        <h1 className="text-5xl font-extrabold text-white">
-          Create Account
-        </h1>
+      {/* Card */}
+      <div className="border border-olive_leaf-300 bg-cornsilk-600 shadow-sm overflow-hidden">
 
-        <p className="text-zinc-400 mt-4 text-lg">
-          Join BlogSphere and start your blogging journey.
-        </p>
-      </div>
+        {/* Accent Bar */}
+        <div className="h-[6px] bg-copperwood-500"></div>
 
-      {/* Form */}
-      <form onSubmit={handleSubmit(onUserRegister)}>
-        
-        {/* Error */}
-        {error && (
-          <p className="bg-red-500/10 border border-red-500/30 text-red-400 text-center rounded-2xl py-3 mb-6">
-            {error}
+        {/* Header */}
+        <div className="px-10 pt-10 pb-8 text-center border-b border-olive_leaf-300">
+
+          <p className="uppercase tracking-[0.25em] text-xs font-bold text-copperwood-500 mb-3">
+            BlogSphere
           </p>
-        )}
 
-        {/* Role */}
-        <div className="mb-8">
-          <label className="text-white text-lg font-semibold block mb-4">
-            Select Role
-          </label>
+          <h1 className="text-5xl md:text-6xl font-black text-black_forest-500">
+            Create Account
+          </h1>
 
-          <div className="grid grid-cols-2 gap-4">
-            <label className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 hover:border-blue-500 rounded-2xl py-4 cursor-pointer transition">
-              <input
-                type="radio"
-                {...register("role", { required: true })}
-                value="user"
-                className="accent-blue-500 size-5"
-              />
+          <p className="mt-4 text-olive_leaf-500 max-w-xl mx-auto leading-relaxed">
+            Join our community of readers and writers.
+            Publish ideas, share stories, and connect with people around the world.
+          </p>
 
-              <span className="text-white font-medium">
-                User
-              </span>
-            </label>
-
-            <label className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 hover:border-blue-500 rounded-2xl py-4 cursor-pointer transition">
-              <input
-                type="radio"
-                {...register("role", { required: true })}
-                value="author"
-                className="accent-blue-500 size-5"
-              />
-
-              <span className="text-white font-medium">
-                Author
-              </span>
-            </label>
-          </div>
-
-          {errors.role?.type === "required" && (
-            <p className="text-red-400 text-sm mt-3">
-              Please select a role
-            </p>
-          )}
         </div>
 
-        {/* Names */}
-        <div className="grid md:grid-cols-2 gap-5 mb-6">
-          <div>
-            <input
-              type="text"
-              {...register("firstName", { required: true })}
-              placeholder="First Name"
-              className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
-            />
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit(onUserRegister)}
+          className="p-10"
+        >
 
-            {errors.firstName?.type === "required" && (
-              <p className="text-red-400 text-sm mt-2">
-                First name is required
+          {/* Error */}
+          {error && (
+            <div className="mb-8 border border-copperwood-300 bg-copperwood-900 px-5 py-4">
+              <p className="text-copperwood-500 text-center font-medium">
+                {error}
               </p>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="text"
-              {...register("lastName")}
-              placeholder="Last Name"
-              className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
-            />
-          </div>
-        </div>
-
-        {/* Email */}
-        <div className="mb-6">
-          <input
-            type="email"
-            {...register("email", { required: true })}
-            placeholder="Enter your email"
-            className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
-          />
-
-          {errors.email?.type === "required" && (
-            <p className="text-red-400 text-sm mt-2">
-              Email is required
-            </p>
-          )}
-        </div>
-
-        {/* Password */}
-        <div className="mb-6">
-          <input
-            type="password"
-            {...register("password", { required: true })}
-            placeholder="Create a password"
-            className="w-full bg-white/5 border border-white/10 focus:border-blue-500 outline-none rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 transition"
-          />
-
-          {errors.password?.type === "required" && (
-            <p className="text-red-400 text-sm mt-2">
-              Password is required
-            </p>
-          )}
-        </div>
-
-        {/* File Upload */}
-        <div className="mb-8">
-          <label className="block text-white text-lg font-semibold mb-4">
-            Profile Image
-          </label>
-
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            {...register("profileImageUrl")}
-            onChange={(e) => {
-              const file = e.target.files[0];
-
-              if (file) {
-                if (
-                  !["image/jpeg", "image/png"].includes(file.type)
-                ) {
-                  setError("Only JPG or PNG allowed");
-                  return;
-                }
-
-                if (file.size > 2 * 1024 * 1024) {
-                  setError("File size must be less than 2MB");
-                  return;
-                }
-
-                const previewUrl =
-                  URL.createObjectURL(file);
-
-                setPreview(previewUrl);
-                setError(null);
-              }
-            }}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-zinc-400 file:mr-4 file:px-4 file:py-2 file:border-0 file:rounded-xl file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition"
-          />
-
-          {/* Preview */}
-          {preview && (
-            <div className="mt-6 flex justify-center">
-              <img
-                src={preview}
-                alt="Preview"
-                className="w-28 h-28 object-cover rounded-full border-4 border-white/10 shadow-xl"
-              />
             </div>
           )}
-        </div>
 
-        {/* Submit */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-semibold text-lg transition duration-300 shadow-xl shadow-blue-600/20"
-        >
-          {loading ? "Creating Account..." : "Create Account"}
-        </button>
-      </form>
+          {/* Role */}
+          <div className="mb-10">
+
+            <label className="block mb-4 uppercase tracking-[0.12em] text-xs font-bold text-black_forest-500">
+              Select Role
+            </label>
+
+            <div className="grid grid-cols-2 gap-4">
+
+              <label className="border border-olive_leaf-300 bg-cornsilk-500 hover:border-copperwood-500 py-4 px-5 flex items-center justify-center gap-3 cursor-pointer transition">
+                <input
+                  type="radio"
+                  {...register("role", {
+                    required: true,
+                  })}
+                  value="user"
+                  className="accent-copperwood-500 size-5"
+                />
+
+                <span className="font-semibold text-black_forest-500">
+                  User
+                </span>
+              </label>
+
+              <label className="border border-olive_leaf-300 bg-cornsilk-500 hover:border-copperwood-500 py-4 px-5 flex items-center justify-center gap-3 cursor-pointer transition">
+                <input
+                  type="radio"
+                  {...register("role", {
+                    required: true,
+                  })}
+                  value="author"
+                  className="accent-copperwood-500 size-5"
+                />
+
+                <span className="font-semibold text-black_forest-500">
+                  Author
+                </span>
+              </label>
+
+            </div>
+
+            {errors.role && (
+              <p className="text-copperwood-500 text-sm mt-3 font-semibold">
+                Please select a role
+              </p>
+            )}
+
+          </div>
+
+          {/* Names */}
+          <div className="grid md:grid-cols-2 gap-5 mb-6">
+
+            <div>
+              <input
+                type="text"
+                {...register("firstName", {
+                  required: true,
+                })}
+                placeholder="First Name"
+                className="
+                  w-full
+                  border border-olive_leaf-300
+                  bg-cornsilk-500
+                  px-5 py-4
+                  text-black_forest-500
+                  placeholder:text-olive_leaf-400
+                  outline-none
+                  focus:border-copperwood-500
+                  transition
+                "
+              />
+
+              {errors.firstName && (
+                <p className="text-copperwood-500 text-sm mt-2 font-semibold">
+                  First name is required
+                </p>
+              )}
+            </div>
+
+            <div>
+              <input
+                type="text"
+                {...register("lastName")}
+                placeholder="Last Name"
+                className="
+                  w-full
+                  border border-olive_leaf-300
+                  bg-cornsilk-500
+                  px-5 py-4
+                  text-black_forest-500
+                  placeholder:text-olive_leaf-400
+                  outline-none
+                  focus:border-copperwood-500
+                  transition
+                "
+              />
+            </div>
+
+          </div>
+
+          {/* Email */}
+          <div className="mb-6">
+
+            <input
+              type="email"
+              {...register("email", {
+                required: true,
+              })}
+              placeholder="Enter your email"
+              className="
+                w-full
+                border border-olive_leaf-300
+                bg-cornsilk-500
+                px-5 py-4
+                text-black_forest-500
+                placeholder:text-olive_leaf-400
+                outline-none
+                focus:border-copperwood-500
+                transition
+              "
+            />
+
+            {errors.email && (
+              <p className="text-copperwood-500 text-sm mt-2 font-semibold">
+                Email is required
+              </p>
+            )}
+
+          </div>
+
+          {/* Password */}
+          <div className="mb-6">
+
+            <input
+              type="password"
+              {...register("password", {
+                required: true,
+              })}
+              placeholder="Create a password"
+              className="
+                w-full
+                border border-olive_leaf-300
+                bg-cornsilk-500
+                px-5 py-4
+                text-black_forest-500
+                placeholder:text-olive_leaf-400
+                outline-none
+                focus:border-copperwood-500
+                transition
+              "
+            />
+
+            {errors.password && (
+              <p className="text-copperwood-500 text-sm mt-2 font-semibold">
+                Password is required
+              </p>
+            )}
+
+          </div>
+
+          {/* Profile Image */}
+          <div className="mb-10">
+
+            <label className="block mb-4 uppercase tracking-[0.12em] text-xs font-bold text-black_forest-500">
+              Profile Image
+            </label>
+
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              {...register("profileImageUrl")}
+              onChange={(e) => {
+                const file = e.target.files[0];
+
+                if (file) {
+                  if (
+                    ![
+                      "image/jpeg",
+                      "image/png",
+                    ].includes(file.type)
+                  ) {
+                    setError(
+                      "Only JPG or PNG allowed"
+                    );
+                    return;
+                  }
+
+                  if (
+                    file.size >
+                    2 * 1024 * 1024
+                  ) {
+                    setError(
+                      "File size must be less than 2MB"
+                    );
+                    return;
+                  }
+
+                  const previewUrl =
+                    URL.createObjectURL(file);
+
+                  setPreview(previewUrl);
+                  setError(null);
+                }
+              }}
+              className="
+                w-full
+                border border-olive_leaf-300
+                bg-cornsilk-500
+                px-5 py-4
+                text-olive_leaf-500
+                file:mr-4
+                file:px-4
+                file:py-2
+                file:border-0
+                file:bg-black_forest-500
+                file:text-cornsilk-500
+                hover:file:bg-copperwood-500
+                file:font-semibold
+                transition
+              "
+            />
+
+            {preview && (
+              <div className="mt-8 flex justify-center">
+
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="
+                    w-28 h-28
+                    object-cover
+                    border-4
+                    border-olive_leaf-300
+                    shadow-sm
+                  "
+                />
+
+              </div>
+            )}
+
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="
+              w-full
+              bg-black_forest-500
+              hover:bg-copperwood-500
+              text-cornsilk-500
+              py-4
+              uppercase
+              tracking-[0.15em]
+              text-sm
+              font-black
+              transition-all
+              duration-300
+            "
+          >
+            {loading
+              ? "Creating Account..."
+              : "Create Account"}
+          </button>
+
+        </form>
+      </div>
     </div>
   </div>
-)
+);
+
 }
 
 export default Register

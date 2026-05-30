@@ -2,6 +2,7 @@ import { useParams, useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { BASE_URL } from "../config/api.js";
 import { useAuth } from "../STORES/authStore.js";
 import toast from "react-hot-toast";
 import {
@@ -44,7 +45,7 @@ function ArticleByID() {
 
       try {
         const res = await axios.get(
-          `https://capstone-project-1-zhbo.onrender.com/user-api/article/${id}`,
+          `${BASE_URL}/user-api/article/${id}`,
           { withCredentials: true }
         );
 
@@ -79,7 +80,7 @@ function ArticleByID() {
 //      /author-api/articles/6a0b15865700e828a2f567dc/status is Invalid path
     try {
       const res = await axios.patch(
-        `https://capstone-project-1-zhbo.onrender.com/author-api/articles/${id}/status`,
+        `${BASE_URL}/author-api/articles/${id}/status`,
         { isArticleActive: newStatus },
         { withCredentials: true }
       );
@@ -110,7 +111,7 @@ function ArticleByID() {
     commentObj.articleId = article._id;
 
     const res = await axios.post(
-      "https://capstone-project-1-zhbo.onrender.com/user-api/comment",
+      `${BASE_URL}/user-api/comment`,
       commentObj,
       { withCredentials: true }
     );
@@ -152,106 +153,139 @@ function ArticleByID() {
     ? article.comments
     : article.comments?.slice(0, 2);
 
-  return (
-    <div className="min-h-screen bg-[#f5f7fb] py-10">
-      <div className="max-w-5xl mx-auto">
-        {/* Article Card */}
-        <div className="bg-white border border-zinc-200 rounded-[36px] shadow-sm overflow-hidden">
-          {/* Top Section */}
-          <div className="p-8 md:p-14 border-b border-zinc-200">
-            {/* Category */}
-            <span className="inline-flex bg-blue-50 text-blue-600 border border-blue-100 px-4 py-2 rounded-full text-sm font-medium">
-              {article.category}
-            </span>
+return (
+  <div className="min-h-screen bg-cornsilk-500 py-12 px-6 md:px-10">
+    <div className="max-w-5xl mx-auto">
+      {/* Article Container */}
+      <div className="border border-olive_leaf-300 bg-cornsilk-600 shadow-sm overflow-hidden">
+        {/* Accent Bar */}
+        <div className="h-1.5 bg-copperwood-500"></div>
 
-            {/* Title */}
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mt-6 text-zinc-900">
-              {article.title}
-            </h1>
+        {/* Hero Section */}
+        <div className="p-8 md:p-14 border-b border-olive_leaf-300">
+          {/* Category */}
+          <span className="inline-flex bg-black_forest-500 text-cornsilk-500 px-5 py-2 uppercase tracking-[0.18em] text-xs font-bold shadow-sm">
+            {article.category}
+          </span>
 
-            {/* Author Row */}
-            <div className="flex flex-wrap items-center justify-between gap-6 mt-10">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
-                   <img
-                        src={
-                          article.author?.profileImageUrl ||
-                          "https://th.bing.com/th/id/OIP.cN620h43KlX8Sa15ZIsJfQHaHa?w=202&h=202&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
-                        }
-                        alt="profile"
-                        className="w-10 h-10 rounded-full object-cover border border-white/20"
-                    />
-                </div>
+          {/* Title */}
+          <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tight mt-8 text-black_forest-500">
+            {article.title}
+          </h1>
 
-                <div>
-                  <p className="font-semibold text-zinc-900">
-                    {article.author?.firstName ||
-                      "Author"}
-                  </p>
-
-                  <p className="text-zinc-500 text-sm">
-                    Article Author
-                  </p>
-                </div>
+          {/* Meta */}
+          <div className="flex flex-wrap items-center justify-between gap-8 mt-12">
+            {/* Author */}
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 border border-olive_leaf-300 overflow-hidden shadow-sm">
+                <img
+                  src={
+                    article.author
+                      ?.profileImageUrl ||
+                    "https://th.bing.com/th/id/OIP.cN620h43KlX8Sa15ZIsJfQHaHa?w=202&h=202&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
+                  }
+                  alt="profile"
+                  className="w-full h-full object-cover"
+                />
               </div>
 
-              <div className="flex items-center gap-2 text-zinc-500">
-                <CalendarDays size={18} />
+              <div>
+                <p className="text-lg font-bold text-black_forest-500">
+                  {article.author?.firstName ||
+                    "Author"}
+                </p>
 
-                <span>
-                  {formatDate(article.createdAt)}
-                </span>
+                <p className="uppercase tracking-[0.15em] text-xs text-olive_leaf-500 font-semibold">
+                  Article Author
+                </p>
               </div>
             </div>
-          </div>
 
-          {/* Content */}
-          <div className="p-8 md:p-14">
-            <div className="prose prose-zinc max-w-none text-lg leading-9">
-              <p className="whitespace-pre-line text-zinc-700">
-                {article.content}
-              </p>
+            {/* Date */}
+            <div className="flex items-center gap-3 border border-olive_leaf-300 bg-cornsilk-500 px-5 py-3 shadow-sm">
+              <CalendarDays
+                size={18}
+                className="text-copperwood-500"
+              />
+
+              <span className="text-black_forest-500 font-medium">
+                {formatDate(article.createdAt)}
+              </span>
             </div>
-
-            {/* Author Actions */}
-            {user?.role === "AUTHOR" && (
-              <div className="flex gap-4 mt-12">
-                <button
-                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl transition"
-                  onClick={() => editArticle(article)}
-                >
-                  <Pencil size={18} />
-                  Edit
-                </button>
-
-                <button
-                  className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-2xl transition"
-                  onClick={toggleArticleStatus}
-                >
-                  <Trash2 size={18} />
-
-                  {article.isArticleActive
-                    ? "Delete"
-                    : "Restore"}
-                </button>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Comments Section */}
-        <div className="mt-10 bg-white border border-zinc-200 rounded-[36px] p-8 md:p-10 shadow-sm">
-          {/* Heading */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <MessageCircle className="text-blue-600" />
+        {/* Article Content */}
+        <div className="p-8 md:p-14">
+          <div className="max-w-none">
+            <p className="whitespace-pre-line text-[18px] leading-[2.2rem] text-black_forest-500 font-[450]">
+              {article.content}
+            </p>
+          </div>
 
-              <h2 className="text-2xl font-bold text-zinc-900">
-                Comments
-              </h2>
+          {/* Author Actions */}
+          {user?.role === "AUTHOR" && (
+            <div className="flex flex-wrap gap-4 mt-14">
+              {/* Edit */}
+              <button
+                className="flex items-center gap-3 bg-black_forest-500 hover:bg-black_forest-600 text-cornsilk-500 px-7 py-3 uppercase tracking-[0.12em] text-sm font-bold transition duration-300 shadow-md"
+                onClick={() =>
+                  editArticle(article)
+                }
+              >
+                <Pencil size={18} />
+                Edit Article
+              </button>
+
+              {/* Delete / Restore */}
+              <button
+                className={`flex items-center gap-3 px-7 py-3 uppercase tracking-[0.12em] text-sm font-bold transition duration-300 shadow-md ${
+                  article.isArticleActive
+                    ? "bg-copperwood-500 hover:bg-copperwood-400 text-cornsilk-500"
+                    : "bg-olive_leaf-500 hover:bg-olive_leaf-600 text-cornsilk-500"
+                }`}
+                onClick={toggleArticleStatus}
+              >
+                <Trash2 size={18} />
+
+                {article.isArticleActive
+                  ? "Delete Article"
+                  : "Restore Article"}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Comments Section */}
+      <div className="mt-10 border border-olive_leaf-300 bg-cornsilk-600 shadow-sm overflow-hidden">
+        {/* Top Accent */}
+        <div className="h-[5px] bg-black_forest-500"></div>
+
+        <div className="p-8 md:p-10">
+          {/* Heading */}
+          <div className="flex flex-wrap items-center justify-between gap-5 mb-10">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-copperwood-500 flex items-center justify-center">
+                <MessageCircle
+                  className="text-cornsilk-500"
+                  size={22}
+                />
+              </div>
+
+              <div>
+                <h2 className="text-3xl font-black text-black_forest-500">
+                  Comments
+                </h2>
+
+                <p className="uppercase tracking-[0.15em] text-xs text-olive_leaf-500 font-semibold mt-1">
+                  Community Discussion
+                </p>
+              </div>
             </div>
 
-            <div className="bg-zinc-100 text-zinc-700 px-4 py-2 rounded-full text-sm font-medium">
+            {/* Count */}
+            <div className="border border-olive_leaf-300 bg-cornsilk-500 px-5 py-3 text-black_forest-500 font-bold shadow-sm">
               {article.comments?.length || 0} Comments
             </div>
           </div>
@@ -260,62 +294,68 @@ function ArticleByID() {
           {user?.role === "USER" && (
             <form
               onSubmit={handleSubmit(addComment)}
-              className="mb-10"
+              className="mb-12"
             >
               <textarea
                 {...register("comment")}
-                placeholder="Write your thoughts here..."
-                rows={4}
-                className="w-full border border-zinc-300 rounded-3xl p-5 outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 resize-none text-zinc-700"
+                placeholder="Share your thoughts..."
+                rows={2}
+                className="w-full border border-olive_leaf-300 bg-cornsilk-500 p-5 outline-none focus:border-copperwood-500 resize-none text-black_forest-500 placeholder:text-olive_leaf-400 leading-relaxed transition duration-300"
               />
 
-              <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl transition font-medium">
+              <button className="mt-5 bg-copperwood-500 hover:bg-copperwood-400 text-cornsilk-500 px-7 py-3 uppercase tracking-[0.15em] text-sm font-bold transition duration-300 shadow-md">
                 Add Comment
               </button>
             </form>
           )}
 
           {/* Comments List */}
-          <div className="space-y-5">
-            {visibleComments?.map((comment, index) => (
-              <div
-                key={index}
-                className="bg-zinc-50 border border-zinc-200 rounded-3xl p-6"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center">
-                    <User
-                      size={18}
-                      className="text-blue-600"
-                    />
+          <div className="space-y-6">
+            {visibleComments?.map(
+              (comment, index) => (
+                <div
+                  key={index}
+                  className="border border-olive_leaf-300 bg-cornsilk-500 p-6 shadow-sm"
+                >
+                  {/* User */}
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="w-12 h-12 bg-black_forest-500 flex items-center justify-center">
+                      <User
+                        size={18}
+                        className="text-cornsilk-500"
+                      />
+                    </div>
+
+                    <div>
+                      <p className="font-bold text-black_forest-500">
+                        {comment.user?.email}
+                      </p>
+
+                      <p className="uppercase tracking-[0.15em] text-xs text-olive_leaf-500 font-semibold">
+                        Reader
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <p className="font-semibold text-zinc-900">
-                      {comment.user?.email}
-                    </p>
-
-                    <p className="text-sm text-zinc-500">
-                      Reader
-                    </p>
-                  </div>
+                  {/* Comment */}
+                  <p className="text-black_forest-500 leading-8">
+                    {comment.comment}
+                  </p>
                 </div>
-
-                <p className="text-zinc-700 leading-7">
-                  {comment.comment}
-                </p>
-              </div>
-            ))}
+              )
+            )}
           </div>
 
-          {/* Show More Button */}
+          {/* Show More */}
           {article.comments?.length > 2 && (
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-10">
               <button
                 onClick={() =>
-                  setShowAllComments(!showAllComments)
+                  setShowAllComments(
+                    !showAllComments
+                  )
                 }
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition"
+                className="flex items-center gap-3 uppercase tracking-[0.12em] text-sm font-bold text-copperwood-500 hover:text-copperwood-400 transition"
               >
                 {showAllComments
                   ? "Show Less"
@@ -323,7 +363,7 @@ function ArticleByID() {
 
                 <ChevronDown
                   size={18}
-                  className={`transition ${
+                  className={`transition duration-300 ${
                     showAllComments
                       ? "rotate-180"
                       : ""
@@ -333,15 +373,21 @@ function ArticleByID() {
             </div>
           )}
         </div>
+      </div>
 
-        {/* Footer */}
-        <div className="text-center text-zinc-500 mt-8">
-          Last updated:{" "}
+      {/* Footer */}
+      <div className="text-center mt-8 border-t border-olive_leaf-300 pt-6">
+        <p className="uppercase tracking-[0.15em] text-xs text-olive_leaf-500 font-semibold">
+          Last Updated
+        </p>
+
+        <p className="text-black_forest-500 font-bold mt-2">
           {formatDate(article.updatedAt)}
-        </div>
+        </p>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default ArticleByID;
